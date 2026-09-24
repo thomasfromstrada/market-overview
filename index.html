@@ -185,7 +185,7 @@ footer{margin-top:24px;color:var(--ink4);font-size:12.5px}
           <label for="shareN">Share automatable by AI
             <span class="numbox"><input id="shareN" type="number" min="0" max="100" step="1" inputmode="decimal"><span>%</span></span></label>
           <input id="shareR" type="range" min="0" max="100" step="1" aria-label="Share automatable by AI">
-          <div class="hint">Carrier &amp; MGA only. TPA &amp; PO count 100% of underwriting expenses as capturable spend.</div>
+          <div class="hint">Carrier &amp; MGA only. TPA &amp; BPO count 100% of underwriting expenses as capturable spend.</div>
         </div>
         <div class="field">
           <label for="effN">Efficiency gains
@@ -237,29 +237,29 @@ footer{margin-top:24px;color:var(--ink4);font-size:12.5px}
       <div id="wfChart"></div>
       <div class="detail" id="wfDetail"></div>
     </section>
-  <footer id="foot">Source: Market Overview, Sept 2026 workbook. Non-US TPA &amp; PO pooled into one geography. Each color group is one connected block, placed in legend order from the bottom-left corner toward the right. Filtered-out squares stay in place, in grey.</footer>
+  <footer id="foot">Source: Market Overview, Sept 2026 workbook. Non-US TPA &amp; BPO pooled into one geography. Each color group is one connected block, placed in legend order from the bottom-left corner toward the right. Filtered-out squares stay in place, in grey.</footer>
 </div>
 <div id="tip" role="tooltip"></div>
 
 <script>
 // [Geography, Segment, Macro LOB, LOB, Gross Written Premium $B, Underwriting expenses $B]
-const RAW = [["US","Carrier & MGA","P&C","Auto - Personal",328.074471,77.290973],["US","Carrier & MGA","P&C","Auto - Small C.",28.706516,6.76296],["US","Carrier & MGA","P&C","Auto - Large C.",53.312102,12.559783],["US","Carrier & MGA","P&C","Home & Personal Property",174.124549,52.20976],["US","Carrier & MGA","P&C","Commercial Property & Specialty - Small C.",67.406211,22.37666],["US","Carrier & MGA","P&C","Commercial Property & Specialty",125.182963,41.556655],["US","Carrier & MGA","P&C","General Liability - Small C.",44.270925,12.800178],["US","Carrier & MGA","P&C","General Liability - Large C.",82.217433,23.77176],["US","Carrier & MGA","P&C","Worker's Comp - Small C.",41.136263,8.810255],["US","Carrier & MGA","P&C","Worker's Comp - Large C.",17.629827,3.775824],["US","Carrier & MGA","P&C","Financial Lines - Small C.",4.164739,0.802775],["US","Carrier & MGA","P&C","Financial Lines - Large C.",16.658954,3.2111],["US","Carrier & MGA","P&C","Professional Liability - Small C.",2.470009,0.872863],["US","Carrier & MGA","P&C","Professional Liability - Large C.",9.880038,3.491453],["US","Carrier & MGA","Life","Life",1087.151,168.073],["US","Carrier & MGA","Health","Health",1371.26,136.466],["China","Carrier & MGA","P&C","P&C",221.697015,60.210052],["China","Carrier & MGA","Life","Life",548.343284,84.773597],["China","Carrier & MGA","Health","Health",144.046269,14.335296],["UK","Carrier & MGA","P&C","P&C",139.961728,38.011802],["UK","Carrier & MGA","Life","Life",331.976762,51.323441],["UK","Carrier & MGA","Health","Health",14.915518,1.484373],["France","Carrier & MGA","P&C","P&C",91.086,24.737784],["France","Carrier & MGA","Life","Life",221.16,34.191225],["France","Carrier & MGA","Health","Health",39.558,3.93676],["Japan","Carrier & MGA","P&C","P&C",76.557418,20.792008],["Japan","Carrier & MGA","Life","Life",225.168877,34.810996],["Japan","Carrier & MGA","Health","Health",56.292219,5.602128],["Germany","Carrier & MGA","P&C","P&C",105.46824,28.643815],["Germany","Carrier & MGA","Life","Life",107.87592,16.677563],["Germany","Carrier & MGA","Health","Health",57.84702,5.75686],["Canada","Carrier & MGA","P&C","P&C",71.353509,19.378693],["Canada","Carrier & MGA","Life","Life",89.894737,13.897681],["Canada","Carrier & MGA","Health","Health",59.110526,5.882602],["Rest of World","Carrier & MGA","P&C","P&C",573.557338,155.770781],["Rest of World","Carrier & MGA","Life","Life",1238.227489,191.42935],["Rest of World","Carrier & MGA","Health","Health",301.974132,30.05207],["US","TPA & PO","P&C","P&C",18.571691,9.285846],["US","TPA & PO","Life","Life",2.748042,1.374021],["US","TPA & PO","Health","Health",12.131159,6.06558],["China","TPA & PO","P&C","P&C",1.799959,0.899979],["China","TPA & PO","Life","Life",0.885891,0.442946],["China","TPA & PO","Health","Health",0.805527,0.402764],["UK","TPA & PO","P&C","P&C",0.958681,0.47934],["UK","TPA & PO","Life","Life",0.471837,0.235918],["UK","TPA & PO","Health","Health",0.429034,0.214517],["France","TPA & PO","P&C","P&C",0.692749,0.346375],["France","TPA & PO","Life","Life",0.340952,0.170476],["France","TPA & PO","Health","Health",0.310023,0.155011],["Japan","TPA & PO","P&C","P&C",0.704986,0.352493],["Japan","TPA & PO","Life","Life",0.346975,0.173488],["Japan","TPA & PO","Health","Health",0.315499,0.15775],["Germany","TPA & PO","P&C","P&C",0.534012,0.267006],["Germany","TPA & PO","Life","Life",0.262826,0.131413],["Germany","TPA & PO","Health","Health",0.238984,0.119492],["Canada","TPA & PO","P&C","P&C",0.433916,0.216958],["Canada","TPA & PO","Life","Life",0.213562,0.106781],["Canada","TPA & PO","Health","Health",0.194188,0.097094],["Rest of World","TPA & PO","P&C","P&C",4.162274,2.081137],["Rest of World","TPA & PO","Life","Life",2.048559,1.024279],["Rest of World","TPA & PO","Health","Health",1.862724,0.931362]];
+const RAW = [["US","Carrier & MGA","P&C","Auto - Personal",328.074471,77.290973],["US","Carrier & MGA","P&C","Auto - Small C.",28.706516,6.76296],["US","Carrier & MGA","P&C","Auto - Large C.",53.312102,12.559783],["US","Carrier & MGA","P&C","Home & Personal Property",174.124549,52.20976],["US","Carrier & MGA","P&C","Commercial Property & Specialty - Small C.",67.406211,22.37666],["US","Carrier & MGA","P&C","Commercial Property & Specialty",125.182963,41.556655],["US","Carrier & MGA","P&C","General Liability - Small C.",44.270925,12.800178],["US","Carrier & MGA","P&C","General Liability - Large C.",82.217433,23.77176],["US","Carrier & MGA","P&C","Worker's Comp - Small C.",41.136263,8.810255],["US","Carrier & MGA","P&C","Worker's Comp - Large C.",17.629827,3.775824],["US","Carrier & MGA","P&C","Financial Lines - Small C.",4.164739,0.802775],["US","Carrier & MGA","P&C","Financial Lines - Large C.",16.658954,3.2111],["US","Carrier & MGA","P&C","Professional Liability - Small C.",2.470009,0.872863],["US","Carrier & MGA","P&C","Professional Liability - Large C.",9.880038,3.491453],["US","Carrier & MGA","Life","Life",1087.151,168.073],["US","Carrier & MGA","Health","Health",1371.26,136.466],["China","Carrier & MGA","P&C","P&C",221.697015,60.210052],["China","Carrier & MGA","Life","Life",548.343284,84.773597],["China","Carrier & MGA","Health","Health",144.046269,14.335296],["UK","Carrier & MGA","P&C","P&C",139.961728,38.011802],["UK","Carrier & MGA","Life","Life",331.976762,51.323441],["UK","Carrier & MGA","Health","Health",14.915518,1.484373],["France","Carrier & MGA","P&C","P&C",91.086,24.737784],["France","Carrier & MGA","Life","Life",221.16,34.191225],["France","Carrier & MGA","Health","Health",39.558,3.93676],["Japan","Carrier & MGA","P&C","P&C",76.557418,20.792008],["Japan","Carrier & MGA","Life","Life",225.168877,34.810996],["Japan","Carrier & MGA","Health","Health",56.292219,5.602128],["Germany","Carrier & MGA","P&C","P&C",105.46824,28.643815],["Germany","Carrier & MGA","Life","Life",107.87592,16.677563],["Germany","Carrier & MGA","Health","Health",57.84702,5.75686],["Canada","Carrier & MGA","P&C","P&C",71.353509,19.378693],["Canada","Carrier & MGA","Life","Life",89.894737,13.897681],["Canada","Carrier & MGA","Health","Health",59.110526,5.882602],["Rest of World","Carrier & MGA","P&C","P&C",573.557338,155.770781],["Rest of World","Carrier & MGA","Life","Life",1238.227489,191.42935],["Rest of World","Carrier & MGA","Health","Health",301.974132,30.05207],["US","TPA & BPO","P&C","P&C",18.571691,9.285846],["US","TPA & BPO","Life","Life",2.748042,1.374021],["US","TPA & BPO","Health","Health",12.131159,6.06558],["China","TPA & BPO","P&C","P&C",1.799959,0.899979],["China","TPA & BPO","Life","Life",0.885891,0.442946],["China","TPA & BPO","Health","Health",0.805527,0.402764],["UK","TPA & BPO","P&C","P&C",0.958681,0.47934],["UK","TPA & BPO","Life","Life",0.471837,0.235918],["UK","TPA & BPO","Health","Health",0.429034,0.214517],["France","TPA & BPO","P&C","P&C",0.692749,0.346375],["France","TPA & BPO","Life","Life",0.340952,0.170476],["France","TPA & BPO","Health","Health",0.310023,0.155011],["Japan","TPA & BPO","P&C","P&C",0.704986,0.352493],["Japan","TPA & BPO","Life","Life",0.346975,0.173488],["Japan","TPA & BPO","Health","Health",0.315499,0.15775],["Germany","TPA & BPO","P&C","P&C",0.534012,0.267006],["Germany","TPA & BPO","Life","Life",0.262826,0.131413],["Germany","TPA & BPO","Health","Health",0.238984,0.119492],["Canada","TPA & BPO","P&C","P&C",0.433916,0.216958],["Canada","TPA & BPO","Life","Life",0.213562,0.106781],["Canada","TPA & BPO","Health","Health",0.194188,0.097094],["Rest of World","TPA & BPO","P&C","P&C",4.162274,2.081137],["Rest of World","TPA & BPO","Life","Life",2.048559,1.024279],["Rest of World","TPA & BPO","Health","Health",1.862724,0.931362]];
 const N=100, CELLS=N*N;
 const DEFAULTS={share:0.20, eff:3};
 const METRICS=["Gross Written Premium","Underwriting expenses","Capturable spend","Addressable AI Spend"];
 const PALETTES={
-  geo:{"US":"#1F5C4B","China":"#C5644F","UK":"#4A6F92","France":"#8A77AE","Japan":"#D3A04C","Germany":"#7F9A4A","Canada":"#A97C58","Rest of World":"#9EA39F","Non-US TPA & PO":"#5E9486"},
-  seg:{"Carrier & MGA":"#1F5C4B","TPA & PO":"#7ED6B8"},
+  geo:{"US":"#1F5C4B","China":"#C5644F","UK":"#4A6F92","France":"#8A77AE","Japan":"#D3A04C","Germany":"#7F9A4A","Canada":"#A97C58","Rest of World":"#9EA39F","Non-US TPA & BPO":"#5E9486"},
+  seg:{"Carrier & MGA":"#1F5C4B","TPA & BPO":"#7ED6B8"},
   macro:{"P&C":"#1C4539","Life":"#EAD9A0","Health":"#E6A5B5"},
   // LOB: each P&C family is its own shade of the Strada green (small = lighter, large = deeper); Life sand, Health rose
   lo:{"Auto - Personal":"#31725F","Auto - Small C.":"#7FBDAB","Auto - Large C.":"#1C4A3C","Home & Personal Property":"#40827B","Commercial Property & Specialty - Small C.":"#8DB9A2","Commercial Property & Specialty":"#2C5941","General Liability - Small C.":"#7CB2B6","General Liability - Large C.":"#255256","Worker's Comp - Small C.":"#A3C2AB","Worker's Comp - Large C.":"#406D4C","Financial Lines - Small C.":"#A6C2C9","Financial Lines - Large C.":"#477885","Professional Liability - Small C.":"#B7CDC4","Professional Liability - Large C.":"#5B8F7A","P&C (not split)":"#1C4539","Life":"#EAD9A0","Health":"#E6A5B5"},
 };
 const DIMS=[{key:"geo",label:"Geography"},{key:"seg",label:"Segment"},{key:"macro",label:"Macro LOB"},{key:"lo",label:"LOB"}];
 
-// Pool non-US TPA & PO into one geography, one line per LOB
-const NONUS="Non-US TPA & PO", pooled=new Map(), SRC=[];
+// Pool non-US TPA & BPO into one geography, one line per LOB
+const NONUS="Non-US TPA & BPO", pooled=new Map(), SRC=[];
 RAW.forEach(r=>{
-  if(r[1]==="TPA & PO"&&r[0]!=="US"){
+  if(r[1]==="TPA & BPO"&&r[0]!=="US"){
     const k=r[2]+"|"+r[3];
     if(!pooled.has(k)){const x=[NONUS,r[1],r[2],r[3],0,0,[]];pooled.set(k,x);SRC.push(x);}
     const x=pooled.get(k);x[4]+=r[4];x[5]+=r[5];x[6].push(r[0]);
@@ -270,8 +270,8 @@ const rows=SRC.map((r,i)=>({id:i,geo:r[0],seg:r[1],macro:r[2],lob:r[3],gwp:r[4],
 const DIM_VALUES=Object.fromEntries(DIMS.map(d=>[d.key,Object.keys(PALETTES[d.key]).filter(v=>rows.some(r=>r[d.key]===v))]));
 rows.forEach(r=>DIMS.forEach(d=>{if(!PALETTES[d.key][r[d.key]]) console.error("No color for",d.key,r[d.key]);}));
 
-// Inside a block, Non-US TPA & PO sits just before the US so TPA & PO squares touch without splitting Carrier & MGA.
-const INNER_GEO=["Non-US TPA & PO","US",...DIM_VALUES.geo.filter(g=>g!=="US"&&g!=="Non-US TPA & PO")];
+// Inside a block, Non-US TPA & BPO sits just before the US so TPA & BPO squares touch without splitting Carrier & MGA.
+const INNER_GEO=["Non-US TPA & BPO","US",...DIM_VALUES.geo.filter(g=>g!=="US"&&g!=="Non-US TPA & BPO")];
 const state={share:DEFAULTS.share,eff:DEFAULTS.eff,metric:3,colorBy:"geo",
   filters:Object.fromEntries(DIMS.map(d=>[d.key,new Set(DIM_VALUES[d.key])]))};
 
@@ -315,9 +315,9 @@ function packColumns(groups){
 }
 // Inside a block, lines are arranged in two levels so related lines sit together:
 //   - vertical slices by a first dimension (e.g. P&C | Life | Health inside a country),
-//   - inside each slice, bottom-to-top bands by a second dimension (Carrier & MGA below, TPA & PO on top),
+//   - inside each slice, bottom-to-top bands by a second dimension (Carrier & MGA below, TPA & BPO on top),
 //   - then individual LOBs in legend order.
-// Every slice puts the same band at the top, so e.g. all TPA & PO squares of a country form one strip.
+// Every slice puts the same band at the top, so e.g. all TPA & BPO squares of a country form one strip.
 const INNER={geo:["macro","seg"], seg:["geo","macro"], macro:["geo","seg"], lo:["geo","seg"]};
 function arrangeBlock(cellsList,lines,cells,cb){
   const [P,S]=INNER[cb], rank=(d,v)=>(d==="geo"?INNER_GEO:DIM_VALUES[d]).indexOf(v);
@@ -515,7 +515,7 @@ function syncControls(){
 buildFilters();
 let rt;new ResizeObserver(()=>{clearTimeout(rt);rt=setTimeout(()=>{size();draw();},60);}).observe($("gridbox"));
 // ---------- waterfall ----------
-// Gross Written Premium counts Carrier & MGA only ($8,170B); the later steps include TPA & PO.
+// Gross Written Premium counts Carrier & MGA only ($8,170B); the later steps include TPA & BPO.
 const MACROS=["P&C","Life","Health"];
 let wfSel=3;
 function fmtB(b){return "$"+(b>=10||b===0?Math.round(b).toLocaleString("en-US"):b.toFixed(1))+"B";}
@@ -525,7 +525,7 @@ function wfData(){
     if(r.seg==="Carrier & MGA") parts[0][r.macro]+=v[0];
     for(let j=1;j<4;j++) parts[j][r.macro]+=v[j];});
   const names=["Gross Written Premium","Underwriting expenses","Capturable spend","Addressable AI Spend"];
-  const notes=["Carrier & MGA","All segments",pct(state.share)+" automatable (Carrier & MGA), 100% (TPA & PO)","Capturable ÷ "+(+state.eff.toFixed(2))+"× efficiency gains"];
+  const notes=["Carrier & MGA","All segments",pct(state.share)+" automatable (Carrier & MGA), 100% (TPA & BPO)","Capturable ÷ "+(+state.eff.toFixed(2))+"× efficiency gains"];
   return names.map((n,j)=>({name:n,note:notes[j],parts:parts[j],total:MACROS.reduce((t,k)=>t+parts[j][k],0)}));
 }
 function renderWaterfall(){
@@ -589,7 +589,7 @@ const PATH_GROUPS=[
   {id:"uspc",label:"US P&C carriers",mkt:{label:"P&C carriers, US",acc:1255,ai:()=>mktAI(r=>r.geo==="US"&&r.seg==="Carrier & MGA"&&r.macro==="P&C")}},
   {id:"uslh",label:"US Life & Health carriers",mkt:{label:"Life/Health carriers, US",acc:621,ai:()=>mktAI(r=>r.geo==="US"&&r.seg==="Carrier & MGA"&&r.macro!=="P&C")}},
   {id:"intl",label:"International P&C carriers",mkt:null},
-  {id:"tpa",label:"TPAs",mkt:{label:"TPAs, World",acc:108,ai:()=>mktAI(r=>r.seg==="TPA & PO")}},
+  {id:"tpa",label:"TPAs",mkt:{label:"TPAs, World",acc:108,ai:()=>mktAI(r=>r.seg==="TPA & BPO")}},
 ];
 const PATH_ROWS=[
   {id:"pc10",g:"uspc",label:"Top 10 P&C carriers, US",gwp:52.8434329},
@@ -727,7 +727,7 @@ function setTab(v){
   document.body.classList.toggle("path",v==="path");
   $("tabs").querySelectorAll("button").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===v));
   $("pageSub").innerHTML=v==="wf"?"Whole market, not affected by the map filters":v==="path"?"Scenarios for reaching the sales goal, by number of accounts per segment":"10,000 squares = the whole market";
-  $("foot").innerHTML=v==="path"?"Source: Path sheet, Market Overview Sept 2026 workbook. Market AI spend follows the shared assumptions; TPA AI spend per account is a fixed input, as in the workbook. Click Save to keep your inputs in this browser; Reset returns to the workbook values.":v==="wf"?"Source: Market Overview, Sept 2026 workbook. Gross Written Premium counts Carrier &amp; MGA only; underwriting expenses and the later steps include TPA &amp; PO.":FOOT_MAP;
+  $("foot").innerHTML=v==="path"?"Source: Path sheet, Market Overview Sept 2026 workbook. Market AI spend follows the shared assumptions; TPA AI spend per account is a fixed input, as in the workbook. Click Save to keep your inputs in this browser; Reset returns to the workbook values.":v==="wf"?"Source: Market Overview, Sept 2026 workbook. Gross Written Premium counts Carrier &amp; MGA only; underwriting expenses and the later steps include TPA &amp; BPO.":FOOT_MAP;
   tip.classList.remove("on");
   if(v==="map"){size();draw();}
 }
