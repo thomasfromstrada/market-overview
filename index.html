@@ -22,7 +22,15 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",Arial,He
 button,input{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .wrap{max-width:1500px;margin:0 auto;padding:28px 28px 40px}
-header.top{margin:12px 0 26px}
+header.top{margin:12px 0 26px;position:relative}
+.saveBar{position:absolute;right:0;top:0;display:flex;align-items:center;gap:8px}
+.saveBar #saveStatus{font-size:12.5px;color:var(--ink4);margin-right:4px}
+.saveBar #saveStatus.dirty{color:#B7791F}
+.btn{border:1px solid var(--forest);background:var(--forest);color:#fff;padding:7px 16px;font-size:13.5px;font-weight:500;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.pulse{background:var(--accent);border-color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:default}
+@media (max-width:700px){.saveBar{position:static;margin-bottom:14px}}
 .eyebrow{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:500;margin-bottom:12px}
 h1{font-family:var(--display);font-size:clamp(34px,4.4vw,54px);font-weight:500;letter-spacing:-.035em;line-height:1.02;margin:0}
 .sub{color:var(--ink3);font-size:14px;margin-top:4px}
@@ -155,7 +163,7 @@ footer{margin-top:24px;color:var(--ink4);font-size:12.5px}
 </head>
 <body>
 <div class="wrap">
-  <header class="top"><div class="eyebrow">Market sizing, September 2026</div><h1>Strada Addressable Market</h1><div class="sub" id="pageSub" style="margin-top:10px">10,000 squares = the whole market</div></header>
+  <header class="top"><div class="saveBar"><span id="saveStatus" class="num"></span><button id="btnReset" type="button" class="btn ghost">Reset</button><button id="btnSave" type="button" class="btn">Save</button></div><div class="eyebrow">Market sizing, September 2026</div><h1>Strada Addressable Market</h1><div class="sub" id="pageSub" style="margin-top:10px">10,000 squares = the whole market</div></header>
   <nav class="tabs" role="tablist" id="tabs">
     <button role="tab" data-v="map" aria-selected="true">Market map</button><button role="tab" data-v="wf" aria-selected="false">Waterfall</button><button role="tab" data-v="path" aria-selected="false">Path to $1B</button>
   </nav>
@@ -172,7 +180,7 @@ footer{margin-top:24px;color:var(--ink4);font-size:12.5px}
           </div></div>
       </div>
       <div class="card assume">
-        <h2>Assumptions <button id="resetA" type="button">Reset</button></h2>
+        <h2>Assumptions</h2>
         <div class="field">
           <label for="shareN">Share automatable by AI
             <span class="numbox"><input id="shareN" type="number" min="0" max="100" step="1" inputmode="decimal"><span>%</span></span></label>
@@ -205,7 +213,7 @@ footer{margin-top:24px;color:var(--ink4);font-size:12.5px}
     </main>
     <section id="pathView" aria-label="Scenarios to reach the sales goal">
       <div class="card">
-        <h2>Assumptions <button id="resetP" type="button">Reset to workbook</button></h2>
+        <h2>Assumptions</h2>
         <div class="passume">
           <div class="pf"><label for="pGoal">Sales goal</label><span class="numbox"><span style="padding:0 0 0 7px">$</span><input id="pGoal" type="number" min="1" step="50" style="width:70px"><span>M</span></span></div>
           <div class="pf"><label for="pER">Average expense ratio</label><span class="numbox"><input id="pER" type="number" min="0" max="100" step="0.1" style="width:80px"><span>%</span></span><div class="hint">Underwriting expenses as a share of GWP</div></div>
@@ -431,6 +439,7 @@ function render(){
   cv.setAttribute("aria-label","Grid of 10,000 squares; selected lines worth "+money(selVal)+" of "+money(total)+" "+METRICS[m]);
   draw();
   renderWaterfall();
+  markDirty();
   if(window.PATH_MKT){syncPathInputs();updatePath();}
   if(tipCell>=0) showTip(tipCell,lastEvt);
 }
@@ -500,7 +509,6 @@ function syncControls(){
   $("shareN").addEventListener("input",e=>setShare(e.target.value)); $("shareR").addEventListener("input",e=>setShare(e.target.value));
   $("effN").addEventListener("input",e=>setEff(e.target.value)); $("effR").addEventListener("input",e=>setEff(e.target.value));
   $("shareN").addEventListener("blur",syncControls); $("effN").addEventListener("blur",syncControls);
-  $("resetA").addEventListener("click",()=>{state.share=DEFAULTS.share;state.eff=DEFAULTS.eff;render();});
   $("resetF").addEventListener("click",()=>{DIMS.forEach(d=>state.filters[d.key]=new Set(DIM_VALUES[d.key]));render();});
 })();
 
@@ -615,8 +623,7 @@ function pathDefaults(){
     acc:PATH_SCEN.map(sc=>Object.fromEntries(PATH_ROWS.map(r=>[r.id,sc.acc[r.id]||0])))};
 }
 let PS=pathDefaults();
-try{const saved=JSON.parse(localStorage.getItem("strada-path-v1")||"null"); if(saved&&saved.acc&&saved.acc.length===5) PS=Object.assign(pathDefaults(),saved);}catch(e){}
-function savePath(){try{localStorage.setItem("strada-path-v1",JSON.stringify(PS));}catch(e){}}
+function savePath(){markDirty();} // edits are only kept when the user clicks Save
 function mktAI(pred){return rows.reduce((t,r)=>t+(pred(r)?values(r)[3]:0),0);} // $B, follows the shared assumptions
 function aiPerAcc(r){return r.gwp!=null ? PS.gwp[r.id]*PS.er*state.share/state.eff*1000 : PS.gwp[r.id];} // $M
 function acvOf(r){return aiPerAcc(r)*PS.sow;}
@@ -711,7 +718,6 @@ function syncPathInputs(){
   num("pShare",v=>{state.share=Math.max(0,Math.min(100,v))/100;render();});
   num("pEff",v=>{if(v>0){state.eff=Math.min(20,v);render();}});
   ["pGoal","pER","pSow","pShare","pEff"].forEach(id=>$(id).addEventListener("blur",syncPathInputs));
-  $("resetP").addEventListener("click",()=>{PS=pathDefaults();state.share=DEFAULTS.share;state.eff=DEFAULTS.eff;savePath();buildPath();render();});
 })();
 
 // ---------- tabs ----------
@@ -721,14 +727,46 @@ function setTab(v){
   document.body.classList.toggle("path",v==="path");
   $("tabs").querySelectorAll("button").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===v));
   $("pageSub").innerHTML=v==="wf"?"Whole market, not affected by the map filters":v==="path"?"Scenarios for reaching the sales goal, by number of accounts per segment":"10,000 squares = the whole market";
-  $("foot").innerHTML=v==="path"?"Source: Path sheet, Market Overview Sept 2026 workbook. Market AI spend follows the shared assumptions; TPA AI spend per account is a fixed input, as in the workbook. Your edits are saved in this browser only.":v==="wf"?"Source: Market Overview, Sept 2026 workbook. Gross Written Premium counts Carrier &amp; MGA only; underwriting expenses and the later steps include TPA &amp; PO.":FOOT_MAP;
+  $("foot").innerHTML=v==="path"?"Source: Path sheet, Market Overview Sept 2026 workbook. Market AI spend follows the shared assumptions; TPA AI spend per account is a fixed input, as in the workbook. Click Save to keep your inputs in this browser; Reset returns to the workbook values.":v==="wf"?"Source: Market Overview, Sept 2026 workbook. Gross Written Premium counts Carrier &amp; MGA only; underwriting expenses and the later steps include TPA &amp; PO.":FOOT_MAP;
   tip.classList.remove("on");
   if(v==="map"){size();draw();}
 }
 $("tabs").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.v)));
 
+// ---------- Save / Reset ----------
+// Reset = the workbook values (20%, 3x, workbook accounts...). Save stores the current inputs in this
+// browser; on reload the saved inputs come back. Without Save, a reload shows the Reset values.
+const SAVE_KEY="strada-market-saved-v1";
+try{localStorage.removeItem("strada-path-v1");}catch(e){} // old auto-save from an earlier version
+function snapshot(){return JSON.stringify({share:state.share,eff:state.eff,metric:state.metric,colorBy:state.colorBy,
+  filters:Object.fromEntries(DIMS.map(d=>[d.key,DIM_VALUES[d.key].filter(v=>state.filters[d.key].has(v))])),path:PS});}
+function defaultsSnapshot(){const keep=[state.share,state.eff,state.metric,state.colorBy,state.filters,PS];
+  applyDefaults(); const j=snapshot(); [state.share,state.eff,state.metric,state.colorBy,state.filters,PS]=keep; return j;}
+function applyDefaults(){state.share=DEFAULTS.share;state.eff=DEFAULTS.eff;state.metric=3;state.colorBy="geo";
+  DIMS.forEach(d=>state.filters[d.key]=new Set(DIM_VALUES[d.key])); PS=pathDefaults();}
+function applySnapshot(j){const o=JSON.parse(j);
+  if(typeof o.share==="number") state.share=o.share; if(typeof o.eff==="number"&&o.eff>0) state.eff=o.eff;
+  if([0,1,2,3].includes(o.metric)) state.metric=o.metric; if(PALETTES[o.colorBy]) state.colorBy=o.colorBy;
+  if(o.filters) DIMS.forEach(d=>{if(Array.isArray(o.filters[d.key])) state.filters[d.key]=new Set(o.filters[d.key].filter(v=>DIM_VALUES[d.key].includes(v)));});
+  if(o.path&&Array.isArray(o.path.acc)&&o.path.acc.length===5) PS=Object.assign(pathDefaults(),o.path);}
+const DEFAULT_SNAP=defaultsSnapshot();
+let savedSnap=null, ready=false;
+try{savedSnap=localStorage.getItem(SAVE_KEY);}catch(e){}
+if(savedSnap){try{applySnapshot(savedSnap);}catch(e){savedSnap=null;}}
+function markDirty(){ if(!ready) return;
+  const cur=snapshot(), base=savedSnap||DEFAULT_SNAP, st=$("saveStatus"), dirty=cur!==base;
+  st.textContent=dirty?"Unsaved changes":(savedSnap?"Saved in this browser":"Default values");
+  st.classList.toggle("dirty",dirty);
+  $("btnSave").disabled=!dirty; $("btnSave").classList.toggle("pulse",dirty);
+  $("btnReset").disabled=cur===DEFAULT_SNAP&&!savedSnap;
+}
+$("btnSave").addEventListener("click",()=>{savedSnap=snapshot();try{localStorage.setItem(SAVE_KEY,savedSnap);}catch(e){alert("Could not save in this browser.");savedSnap=null;}markDirty();});
+$("btnReset").addEventListener("click",()=>{applyDefaults();savedSnap=null;try{localStorage.removeItem(SAVE_KEY);}catch(e){}
+  buildPath();render();markDirty();});
+
 buildPath();
 size(); render();
+ready=true; markDirty();
 </script>
 </body>
 </html>
