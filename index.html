@@ -408,17 +408,24 @@ function draw(){
     if(pw<64||ph<36) return;
     const v=b.lines.reduce((t,i)=>t+(lineOn[i]?lineVals[i][m]:0),0);
     const anyOn=b.lines.some(i=>lineOn[i]);
-    const big=pw>160&&ph>80;
-    ctx.font=(big?"15px":"12.5px")+' Inter, Arial, sans-serif';
-    const name=b.name, val=money(v);
-    const tw=Math.max(ctx.measureText(name).width, ctx.measureText(val).width)+14;
-    if(tw>pw-10) return; // skip labels that don't fit
+    // fit the label: try a smaller font, then wrap the name onto two lines, before giving up
+    const val=anyOn?money(v):"Not selected", words=b.name.split(" ");
+    const wraps=[[b.name]]; for(let i=1;i<words.length;i++) wraps.push([words.slice(0,i).join(" "),words.slice(i).join(" ")]);
+    let fit=null;
+    for(const fs of (pw>160&&ph>80?[15,12.5,11]:[12.5,11])){
+      ctx.font=fs+'px Inter, Arial, sans-serif';
+      const lh=Math.round(fs*1.25), opts=wraps.map(ls=>({ls,w:Math.max(...ls.map(t=>ctx.measureText(t).width),ctx.measureText(val).width)+14}))
+        .filter(o=>o.w<=pw-10 && (o.ls.length+1)*lh+10<=ph-2).sort((a,b)=>a.ls.length-b.ls.length||a.w-b.w);
+      if(opts.length){fit={fs,lh,...opts[0]};break;}
+    }
+    if(!fit) return;
     ctx.save(); ctx.beginPath(); ctx.rect(px,py,pw,ph); ctx.clip();
+    ctx.font=fit.fs+'px Inter, Arial, sans-serif'; ctx.textBaseline="top";
     ctx.fillStyle="rgba(247,246,243,0.92)";
-    ctx.fillRect(px+6,py+6,Math.min(tw,pw-12),big?46:38);
-    ctx.fillStyle=anyOn?"#141816":"#9A9E9B"; ctx.textBaseline="top";
-    ctx.fillText(name,px+13,py+11);
-    ctx.fillStyle="#6B706D"; ctx.fillText(anyOn?val:"Not selected",px+13,py+(big?29:25));
+    ctx.fillRect(px+6,py+6,fit.w,(fit.ls.length+1)*fit.lh+10);
+    ctx.fillStyle=anyOn?"#141816":"#9A9E9B";
+    fit.ls.forEach((t,i)=>ctx.fillText(t,px+13,py+11+i*fit.lh));
+    ctx.fillStyle="#6B706D"; ctx.fillText(val,px+13,py+11+fit.ls.length*fit.lh);
     ctx.restore();
   });
 }
