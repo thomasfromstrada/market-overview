@@ -97,47 +97,8 @@ body.wf #mapView{display:none!important}
 body:not(.wf) #wfView{display:none}
 body.path .controls,body.path #mapView{display:none!important}
 body:not(.path) #pathView{display:none}
+body:not(.path) #btnClear{display:none}
 #pathView{display:flex;flex-direction:column;gap:16px}
-.ptitle{font-family:var(--display);font-size:24px;font-weight:500;letter-spacing:-.025em;margin:0}
-.passume{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0}
-.passume .pf{padding:0 16px;border-left:1px solid var(--line)}
-.passume .pf:first-child{border-left:0;padding-left:0}
-.passume label{display:block;font-size:13px;color:var(--ink3);margin-bottom:6px}
-.passume .hint{font-size:12px;color:var(--ink4);margin-top:5px;line-height:1.35}
-.scards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
-.scard{background:var(--panel);border:1px solid var(--line);padding:14px 14px 12px;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(20,24,22,.04)}
-.scard .sn{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:500}
-.scard .st{font-size:14px;font-weight:500;margin:4px 0 2px;min-height:40px;line-height:1.35}
-.scard .st input{width:100%;border:1px solid var(--line);background:var(--bg);padding:3px 6px;font-weight:500}
-.scard .sd{font-size:12px;color:var(--ink3);line-height:1.4;min-height:50px}
-.scard .sv{font-family:var(--display);font-size:30px;font-weight:500;letter-spacing:-.03em;margin-top:10px;line-height:1.05}
-.scard .sbar{height:6px;background:#DEDCD6;margin:8px 0 6px;position:relative;overflow:hidden}
-.scard .sbar i{position:absolute;inset:0 auto 0 0;background:var(--forest);transition:width .3s}
-.scard .sbar i.hit{background:var(--accent)}
-.scard .sm{font-size:12.5px;color:var(--ink3);display:flex;justify-content:space-between;gap:8px}
-.ptable{overflow-x:auto;background:var(--panel);border:1px solid var(--line)}
-.ptable table{border-collapse:collapse;width:100%;min-width:1100px;font-size:12.5px}
-.ptable th,.ptable td{padding:5px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
-.ptable th:first-child,.ptable td:first-child{text-align:left;position:sticky;left:0;background:var(--panel);z-index:1}
-.ptable thead th{font-weight:500;color:var(--ink3);font-size:12px;vertical-align:bottom}
-.ptable thead tr.sc th{color:var(--ink);font-size:12.5px;border-bottom:0;padding-top:12px}
-.ptable .sep{border-left:1px solid var(--line)}
-.ptable tr.grp td{font-weight:500;color:var(--forest);background:var(--bg);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding-top:9px}
-.ptable tr.grp td:first-child{background:var(--bg)}
-.ptable tr.tot td{font-weight:500;border-top:2px solid var(--ink);border-bottom:0}
-.ptable td.calc{color:var(--ink2)}
-.ptable td.rev{color:var(--ink)}
-.ptable td.zero{color:var(--ink4)}
-.ptable input{width:58px;border:1px solid var(--line);background:#fff;padding:3px 6px;text-align:right;font-variant-numeric:tabular-nums;font-size:13px}
-.ptable input[data-k="gwp"]{width:62px}
-.ptable input.acc{width:46px;border-color:#C9C6BE}
-.ptable input.acc:not([value="0"]){border-color:var(--forest);background:#F1F6F3}
-.ptable input:focus{outline:2px solid var(--accent);outline-offset:0}
-.phead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding:14px 14px 4px}
-.phead .t{font-family:var(--display);font-size:18px;font-weight:500;letter-spacing:-.02em}
-.phead .h{font-size:12.5px;color:var(--ink4)}
-.phead button{background:none;border:0;padding:0;color:var(--accent);font-size:13px;cursor:pointer}
-@media (max-width:1100px){.scards{grid-template-columns:repeat(2,minmax(0,1fr))}.passume{grid-template-columns:1fr 1fr;row-gap:14px}.passume .pf{border-left:0;padding-left:0}}
 #wfView{background:var(--panel);border:1px solid var(--line);padding:18px 18px 16px}
 .wfhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
 .wfhead .t{font-family:var(--display);font-size:20px;font-weight:500;letter-spacing:-.02em}
@@ -224,6 +185,53 @@ body:not(.conc) #concView{display:none}
 .csep{height:1px;background:var(--line);margin:5px 0}
 @media (max-width:1300px){.cgrid{grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}}
 @media (max-width:1100px){.cfields{grid-template-columns:1fr 1fr;row-gap:14px}.cfields .pf{border-left:0;padding-left:0}.cfields .pf:last-child{grid-column:1/-1}}
+.psum{position:sticky;top:0;z-index:20;padding:12px 16px}
+.psumg{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:20px;align-items:center}
+.ptotb .lbl,.pins label{display:block;font-size:12.5px;color:var(--ink3);margin-bottom:3px}
+.ptot{font-family:var(--display);font-size:34px;font-weight:500;letter-spacing:-.03em;line-height:1.05}
+.ptsub{font-size:12.5px;color:var(--ink3);margin-top:2px}
+.pbar{position:relative;display:flex;height:14px;background:#DEDCD6;border-radius:2px;overflow:visible}
+.pbar span{display:block;height:100%}
+.pbar .goal{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);margin-left:-1px}
+.pleg{display:flex;flex-wrap:wrap;gap:3px 14px;font-size:12px;color:var(--ink2);margin-top:7px}
+.pleg span{display:inline-flex;align-items:center;gap:5px}.pleg i{width:9px;height:9px;border-radius:2px}
+.pleg b{font-weight:500;color:var(--ink)}
+.pins{display:flex;gap:14px}
+.pcol .ctot{margin:8px 0 2px}
+.pstat{font-size:12px;color:var(--ink3);line-height:1.45}
+.pstat b{font-weight:500;color:var(--ink2)}
+.psow{margin:10px 0 8px;padding:8px 9px;background:var(--bg);border-radius:2px}
+.psow .lbl{font-size:12px;color:var(--ink3);margin-bottom:5px}
+.psowg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.psowg label{display:flex;flex-direction:column;gap:2px;font-size:11px;color:var(--ink3);white-space:nowrap}
+.psowg em{font-style:normal;font-size:11.5px;color:var(--ink2);padding:4px 0}
+.numbox.xs input{width:38px;padding:3px 2px 3px 4px;font-size:12px;text-align:right;-moz-appearance:textfield}.numbox.xs span{padding:0 4px 0 1px;font-size:11.5px}
+.numbox.xs input::-webkit-inner-spin-button,.numbox.xs input::-webkit-outer-spin-button,.pgr .gc input::-webkit-inner-spin-button,.pgr .gc input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.pgr .gc input{-moz-appearance:textfield}
+.numbox.xs{background:#fff}
+.plist{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.plist .chead{padding:9px 0 4px 0}
+.pnmr{display:grid;grid-template-columns:minmax(0,1fr) auto 50px;align-items:center;gap:6px;min-height:26px;padding:0 3px;border-radius:2px;font-size:12.5px}
+.pnmr label{display:flex;align-items:center;gap:6px;min-width:0;cursor:pointer}
+.pnmr input[type=checkbox]{accent-color:var(--c);margin:0;width:14px;height:14px;flex:none}
+.pnmr .pnm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pnmr .vl{text-align:right;color:var(--ink4)}
+.pnmr.won{background:var(--t)}
+.pnmr.won .vl{color:var(--ink);font-weight:500}
+.pgr{padding:5px 3px 6px;border-bottom:1px solid #EAE8E3;font-size:12.5px}
+.pgr .gl{display:flex;align-items:baseline;gap:8px}
+.pgr .gname{font-weight:500}
+.pgr .gavg{color:var(--ink4);font-size:11.5px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pgr .vl{color:var(--ink4)}
+.pgr.on .vl{color:var(--ink);font-weight:500}
+.pgr .gc{display:flex;align-items:center;gap:4px;margin-top:4px}
+.pgr .gc button{width:22px;height:22px;border:1px solid var(--line);background:#fff;padding:0;line-height:1;cursor:pointer;font-size:14px;color:var(--ink2)}
+.pgr .gc input{width:48px;border:1px solid var(--line);background:#fff;padding:2px 4px;text-align:right;font-size:12.5px;font-variant-numeric:tabular-nums}
+.pgr .gc .of{font-size:11.5px;color:var(--ink4);white-space:nowrap;margin-right:4px}
+.pgr .pb{flex:1;height:6px;background:#E3E1DB;position:relative;border-radius:1px;overflow:hidden;min-width:20px}
+.pgr .pb i{position:absolute;inset:0 auto 0 0;background:var(--c)}
+.pgr .pp{font-size:11.5px;color:var(--ink3);width:38px;text-align:right}
+@media (max-width:1100px){.psumg{grid-template-columns:1fr}.psum{position:static}}
 footer{margin-top:24px;color:var(--ink4);font-size:12.5px}
 @media (max-width:1200px){.controls{grid-template-columns:1fr 1fr}.controls .fcard{grid-column:1/-1}}
 @media (max-width:760px){.controls{grid-template-columns:1fr}#filters{grid-template-columns:1fr 1fr;row-gap:14px}.fgroup:nth-child(3){border-left:0;padding-left:0}}
@@ -232,7 +240,7 @@ footer{margin-top:24px;color:var(--ink4);font-size:12.5px}
 </head>
 <body>
 <div class="wrap">
-  <header class="top"><div class="saveBar"><span id="saveStatus" class="num"></span><button id="btnReset" type="button" class="btn ghost">Reset</button><button id="btnSave" type="button" class="btn">Save</button></div><div class="eyebrow">Market sizing, September 2026</div><h1>Strada Addressable Market</h1><div class="sub" id="pageSub" style="margin-top:10px">10,000 squares = the whole market</div></header>
+  <header class="top"><div class="saveBar"><span id="saveStatus" class="num"></span><button id="btnClear" type="button" class="btn ghost" title="Set every account on the Path tab to zero; shares of wallet stay">Clear accounts</button><button id="btnReset" type="button" class="btn ghost">Reset</button><button id="btnSave" type="button" class="btn">Save</button></div><div class="eyebrow">Market sizing, September 2026</div><h1>Strada Addressable Market</h1><div class="sub" id="pageSub" style="margin-top:10px">10,000 squares = the whole market</div></header>
   <nav class="tabs" role="tablist" id="tabs">
     <button role="tab" data-v="map" aria-selected="true">Market map</button><button role="tab" data-v="wf" aria-selected="false">Waterfall</button><button role="tab" data-v="conc" aria-selected="false">Market concentration</button><button role="tab" data-v="path" aria-selected="false">Path to $1B</button>
   </nav>
@@ -280,26 +288,19 @@ footer{margin-top:24px;color:var(--ink4);font-size:12.5px}
       <div id="gridbox"><canvas id="cv" role="img" aria-label="Grid of 10,000 squares"></canvas></div>
       <div class="legend" id="legend"></div>
     </main>
-    <section id="pathView" aria-label="Scenarios to reach the sales goal">
-      <div class="card">
-        <h2>Assumptions</h2>
-        <div class="passume">
-          <div class="pf"><label for="pGoal">Sales goal</label><span class="numbox"><span style="padding:0 0 0 7px">$</span><input id="pGoal" type="number" min="1" step="50" style="width:70px"><span>M</span></span></div>
-          <div class="pf"><label for="pER">Average expense ratio</label><span class="numbox"><input id="pER" type="number" min="0" max="100" step="0.1" style="width:80px"><span>%</span></span><div class="hint">Underwriting expenses as a share of GWP (carriers)</div></div>
-          <div class="pf"><label for="pShare">Share automatable by AI</label><span class="numbox"><input id="pShare" type="number" min="0" max="100" step="1"><span>%</span></span><div class="hint">Set separately from the other tabs</div></div>
-          <div class="pf"><label for="pEff">Efficiency gains</label><span class="numbox"><input id="pEff" type="number" min="1" max="20" step="0.1"><span>×</span></span><div class="hint">Shared with the other tabs</div></div>
-          <div class="pf"><label for="pSow">Share of wallet at accounts</label><span class="numbox"><input id="pSow" type="number" min="0" max="100" step="1"><span>%</span></span><div class="hint">Strada's share of each account's AI spend</div></div>
+    <section id="pathView" aria-label="Path to the sales goal">
+      <div class="card assume psum">
+        <div class="psumg">
+          <div class="ptotb"><div class="lbl">Strada revenue</div><div class="ptot num" id="pTot">–</div><div class="ptsub num" id="pTotSub"></div></div>
+          <div class="pbarw"><div class="pbar" id="pBar"></div><div class="pleg num" id="pLeg"></div></div>
+          <div class="pins">
+            <div class="pf"><label for="pGoal">Sales goal</label><span class="numbox"><span style="padding:0 0 0 7px">$</span><input id="pGoal" type="number" min="1" step="50" style="width:64px"><span>M</span></span></div>
+            <div class="pf"><label for="pShare">Share automatable</label><span class="numbox"><input id="pShare" type="number" min="0" max="100" step="1"><span>%</span></span></div>
+            <div class="pf"><label for="pEff">Efficiency gains</label><span class="numbox"><input id="pEff" type="number" min="1" max="20" step="0.1"><span>×</span></span></div>
+          </div>
         </div>
       </div>
-      <div class="scards" id="scards"></div>
-      <div class="ptable">
-        <div class="phead"><span class="t">Accounts and revenue by segment</span><span class="h">Edit any white cell. Revenue = # accounts × ACV per account</span></div>
-        <table id="ptab"></table>
-      </div>
-      <div class="ptable">
-        <div class="phead"><span class="t">Implied market share</span><span class="h">Share of accounts, and share of the segment's Addressable AI Spend</span></div>
-        <table id="mtab"></table>
-      </div>
+      <div class="cgrid" id="pgrid"></div>
     </section>
     <section id="concView" aria-label="Market concentration by segment">
       <div class="card assume">
@@ -565,7 +566,7 @@ function render(){
   draw();
   renderWaterfall();
   markDirty();
-  if(window.PATH_MKT){syncPathInputs();updatePath();}
+  if(pathReady){syncPathInputs();updatePath();}
   renderConc();
   if(tipCell>=0) showTip(tipCell,lastEvt);
 }
@@ -708,148 +709,6 @@ function wfTip(d,e){
   tip.style.left=Math.max(8,x)+"px";tip.style.top=Math.max(8,yy)+"px";
 }
 
-// ---------- path to $1B ----------
-// Mirrors the "Path" sheet. Per row: AI spend per account ($M) = avg GWP ($B) x expense ratio x share
-// automatable / efficiency gains x 1000; ACV = AI spend x share of wallet; revenue = # accounts x ACV.
-// TPA rows use the same logic as TPA & BPO on the map: average revenue stands in for GWP, underwriting
-// expenses are 50% of revenue, and all of it is capturable, so only efficiency gains apply.
-// The TPA revenue defaults reproduce the workbook's fixed AI spend per account at 3x ($51.62M, $27.8M).
-const TPA_ER=0.5;
-const PATH_GROUPS=[
-  {id:"uspc",label:"US P&C carriers",mkt:{label:"P&C carriers, US",acc:1255,ai:()=>mktAI(r=>r.geo==="US"&&r.seg==="Carrier & MGA"&&r.macro==="P&C")}},
-  {id:"uslh",label:"US Life & Health carriers",mkt:{label:"Life/Health carriers, US",acc:621,ai:()=>mktAI(r=>r.geo==="US"&&r.seg==="Carrier & MGA"&&r.macro!=="P&C")}},
-  {id:"intl",label:"International P&C carriers",mkt:null},
-  {id:"tpa",label:"TPAs (avg revenue in place of GWP)",mkt:{label:"TPAs, World",acc:108,ai:()=>mktAI(r=>r.seg==="TPA & BPO")}},
-];
-const PATH_ROWS=[
-  {id:"pc10",g:"uspc",label:"Top 10 P&C carriers, US",gwp:52.8434329},
-  {id:"pc20",g:"uspc",label:"Top 20 P&C carriers, US",gwp:14.8618953},
-  {id:"pc50",g:"uspc",label:"Top 50 P&C carriers, US",gwp:6.1075412},
-  {id:"pc100",g:"uspc",label:"Top 100 P&C carriers, US",gwp:1.97322522},
-  {id:"pctail",g:"uspc",label:"Long tail P&C carriers, US",gwp:0.4},
-  {id:"lh10",g:"uslh",label:"Top 10 Life/Health carriers, US",gwp:7.2044794182},
-  {id:"lh20",g:"uslh",label:"Top 20 Life/Health carriers, US",gwp:3.1889425789},
-  {id:"lh50",g:"uslh",label:"Top 50 Life/Health carriers, US",gwp:1.164980423},
-  {id:"lh100",g:"uslh",label:"Top 100 Life/Health carriers, US",gwp:0.29156843898},
-  {id:"lhtail",g:"uslh",label:"Long tail Life/Health carriers, US",gwp:0.05},
-  {id:"ca",g:"intl",label:"P&C carriers, Canada",gwp:0.36404851414,mkt:{label:"P&C, Canada",acc:196,ai:()=>mktAI(r=>r.geo==="Canada"&&r.seg==="Carrier & MGA"&&r.macro==="P&C")}},
-  {id:"uk",g:"intl",label:"P&C carriers, UK",gwp:0.58317386692,mkt:{label:"P&C, UK",acc:240,ai:()=>mktAI(r=>r.geo==="UK"&&r.seg==="Carrier & MGA"&&r.macro==="P&C")}},
-  {id:"fr",g:"intl",label:"P&C carriers, France",gwp:0.28464375,mkt:{label:"P&C, France",acc:320,ai:()=>mktAI(r=>r.geo==="France"&&r.seg==="Carrier & MGA"&&r.macro==="P&C")}},
-  {id:"de",g:"intl",label:"P&C carriers, Germany",gwp:0.45569891704,mkt:{label:"P&C, Germany",acc:199,ai:()=>mktAI(r=>r.geo==="Germany"&&r.seg==="Carrier & MGA"&&r.macro==="P&C")}},
-  {id:"tpaus",g:"tpa",label:"TPAs, US",gwp:51.62*DEFAULTS.eff/(TPA_ER*1000),tpa:true},
-  {id:"tparow",g:"tpa",label:"TPAs, Rest of World",gwp:27.8*DEFAULTS.eff/(TPA_ER*1000),tpa:true},
-];
-const PATH_SCEN=[
-  {name:"US enterprise P&C carriers",desc:"Focus solely on US P&C: 5 top-20 carriers and 40 mid-size carriers.",acc:{pc10:2,pc20:3,pc50:15,pc100:20,pctail:5}},
-  {name:"Global P&C mid-market & TPAs",desc:"P&C across countries: 60 US mid-market carriers, 40 in Europe and Canada, 20 TPAs.",acc:{pc50:20,pc100:40,ca:10,uk:10,fr:10,de:10,tpaus:10,tparow:10}},
-  {name:"US multi-line mid-market carriers",desc:"Anchor in the US across LOBs: ~60 mid and large P&C accounts, ~60 Life and Health.",acc:{pc20:3,pc50:20,pc100:40,lh20:3,lh50:20,lh100:40}},
-  {name:"Global TPA",desc:"Become the predominant vendor for TPAs, reaching 50 to 75% market share.",acc:{pc100:10,tpaus:40,tparow:40}},
-  {name:"Custom scenario",desc:"Blank. Enter your own account mix.",acc:{},custom:true},
-];
-function pathDefaults(){
-  return {goal:1000, er:0.1765377, share:0.3, sow:0.3, name5:"Custom scenario",
-    gwp:Object.fromEntries(PATH_ROWS.map(r=>[r.id,r.gwp])),
-    mktAcc:Object.fromEntries([...PATH_GROUPS.filter(g=>g.mkt).map(g=>[g.id,g.mkt.acc]),...PATH_ROWS.filter(r=>r.mkt).map(r=>[r.id,r.mkt.acc])]),
-    acc:PATH_SCEN.map(sc=>Object.fromEntries(PATH_ROWS.map(r=>[r.id,sc.acc[r.id]||0])))};
-}
-let PS=pathDefaults();
-function savePath(){markDirty();} // edits are only kept when the user clicks Save
-function mktAI(pred){return rows.reduce((t,r)=>t+(pred(r)?values(r)[3]:0),0);} // $B, follows the shared assumptions
-function aiPerAcc(r){return PS.gwp[r.id]*(r.tpa?TPA_ER:PS.er*PS.share)/state.eff*1000;} // $M; Path has its own share automatable
-function acvOf(r){return aiPerAcc(r)*PS.sow;}
-function fmtGoal(m){return m>=1000&&m%1000===0?"$"+(m/1000)+"B":fmtM(m);}
-function fmtM(m){const a=Math.abs(m); if(a>=1000) return "$"+(m/1000).toFixed(2)+"B"; if(a>=100) return "$"+Math.round(m)+"M"; if(a>=10) return "$"+m.toFixed(1)+"M"; if(a===0) return "$0"; return "$"+m.toFixed(2)+"M";}
-const pct1=x=>(x*100).toFixed(1)+"%";
-function buildPath(){
-  // scenario cards
-  $("scards").innerHTML=PATH_SCEN.map((sc,s)=>'<div class="scard"><div class="sn">Scenario '+(s+1)+'</div><div class="st">'+
-    (sc.custom?'<input id="sname" value="'+esc(PS.name5)+'" aria-label="Custom scenario name">':esc(sc.name))+'</div><div class="sd">'+esc(sc.desc)+'</div>'+
-    '<div class="sv num" id="sv'+s+'"></div><div class="sbar"><i id="sb'+s+'"></i></div><div class="sm num"><span id="sg'+s+'"></span><span id="sa'+s+'"></span></div></div>').join("");
-  $("sname").addEventListener("input",e=>{PS.name5=e.target.value;savePath();$("sh4").textContent=PS.name5||"Custom scenario";$("mh4").textContent=PS.name5||"Custom scenario";});
-  // main table
-  let h='<thead><tr class="sc"><th></th><th colspan="3"></th>'+PATH_SCEN.map((sc,s)=>'<th colspan="2" class="sep" style="text-align:center" id="sh'+s+'">'+esc(sc.custom?PS.name5:sc.name)+'</th>').join("")+'</tr>'+
-    '<tr><th>Segment and LOB</th><th>Avg GWP ($B)</th><th>AI spend / account</th><th>ACV / account</th>'+PATH_SCEN.map(()=>'<th class="sep"># Accounts</th><th>Strada revenue</th>').join("")+'</tr></thead><tbody>';
-  PATH_GROUPS.forEach(g=>{
-    h+='<tr class="grp"><td colspan="'+(4+2*PATH_SCEN.length)+'">'+esc(g.label)+'</td></tr>';
-    PATH_ROWS.filter(r=>r.g===g.id).forEach(r=>{
-      const tipTxt=(r.tpa?"Average revenue per TPA ($B). Underwriting expenses are 50% of revenue, all capturable. Exact value: ":"Exact value: ")+PS.gwp[r.id];
-      h+='<tr><td>'+esc(r.label)+'</td>'+
-        '<td><input data-k="gwp" data-r="'+r.id+'" type="number" step="0.01" min="0" value="'+(+PS.gwp[r.id].toFixed(2))+'" title="'+esc(tipTxt)+'" aria-label="'+(r.tpa?"Average revenue":"Average GWP")+', '+esc(r.label)+'"></td><td class="calc num" id="ai-'+r.id+'"></td>'+
-        '<td class="calc num" id="acv-'+r.id+'"></td>'+
-        PATH_SCEN.map((sc,s)=>'<td class="sep"><input class="acc" data-k="acc" data-s="'+s+'" data-r="'+r.id+'" type="number" min="0" step="1" value="'+PS.acc[s][r.id]+'" aria-label="# accounts, '+esc(r.label)+', scenario '+(s+1)+'"></td><td class="rev num" id="rev-'+s+'-'+r.id+'"></td>').join("")+'</tr>';
-    });
-  });
-  h+='<tr class="tot"><td>Total</td><td></td><td></td><td></td>'+PATH_SCEN.map((sc,s)=>'<td class="sep num" id="ta'+s+'"></td><td class="num" id="tr'+s+'"></td>').join("")+'</tr></tbody>';
-  $("ptab").innerHTML=h;
-  // market share table
-  const M=[...PATH_GROUPS.filter(g=>g.id!=="intl"&&g.id!=="tpa").map(g=>({id:g.id,label:g.mkt.label,ai:g.mkt.ai,rows:PATH_ROWS.filter(r=>r.g===g.id)})),
-    ...PATH_ROWS.filter(r=>r.mkt).map(r=>({id:r.id,label:r.mkt.label,ai:r.mkt.ai,rows:[r]})),
-    {id:"tpa",label:"TPAs, World",ai:PATH_GROUPS[3].mkt.ai,rows:PATH_ROWS.filter(r=>r.g==="tpa")}];
-  window.PATH_MKT=M;
-  let m='<thead><tr class="sc"><th></th><th colspan="2"></th>'+PATH_SCEN.map((sc,s)=>'<th colspan="2" class="sep" style="text-align:center" id="mh'+s+'">'+esc(sc.custom?PS.name5:sc.name)+'</th>').join("")+'</tr>'+
-    '<tr><th>Market</th><th># accounts</th><th>Addressable AI Spend</th>'+PATH_SCEN.map(()=>'<th class="sep">Share of accounts</th><th>Share of AI spend</th>').join("")+'</tr></thead><tbody>';
-  M.forEach(g=>{m+='<tr><td>'+esc(g.label)+'</td><td><input data-k="mkt" data-r="'+g.id+'" type="number" min="1" step="1" value="'+PS.mktAcc[g.id]+'" aria-label="Total accounts, '+esc(g.label)+'"></td><td class="calc num" id="mai-'+g.id+'"></td>'+
-    PATH_SCEN.map((sc,s)=>'<td class="sep num" id="msa-'+s+'-'+g.id+'"></td><td class="num" id="msr-'+s+'-'+g.id+'"></td>').join("")+'</tr>';});
-  m+='<tr class="tot"><td>Total above (not full market)</td><td class="num" id="mta"></td><td class="num" id="mtai"></td>'+PATH_SCEN.map((sc,s)=>'<td class="sep num" id="msa-'+s+'-all"></td><td class="num" id="msr-'+s+'-all"></td>').join("")+'</tr></tbody>';
-  $("mtab").innerHTML=m;
-  document.querySelectorAll("#ptab input,#mtab input").forEach(el=>el.addEventListener("input",()=>{
-    const v=Math.max(0,parseFloat(el.value)); if(isNaN(v)) return;
-    const k=el.dataset.k, id=el.dataset.r;
-    if(k==="acc") PS.acc[+el.dataset.s][id]=v; else if(k==="gwp") PS.gwp[id]=v; else if(k==="mkt"&&v>0) PS.mktAcc[id]=v;
-    if(k==="acc") el.setAttribute("value",String(v));
-    savePath(); updatePath();
-  }));
-}
-function updatePath(){
-  const goal=PS.goal;
-  PATH_ROWS.forEach(r=>{ $("ai-"+r.id).textContent=fmtM(aiPerAcc(r)); $("acv-"+r.id).textContent=fmtM(acvOf(r)); });
-  const revs=PATH_SCEN.map((sc,s)=>{
-    let ta=0,tr=0;
-    PATH_ROWS.forEach(r=>{const n=PS.acc[s][r.id]||0, v=n*acvOf(r); ta+=n; tr+=v;
-      const c=$("rev-"+s+"-"+r.id); c.textContent=n?fmtM(v):"–"; c.classList.toggle("zero",!n);});
-    $("ta"+s).textContent=ta.toLocaleString("en-US"); $("tr"+s).textContent=fmtM(tr);
-    return {ta,tr};
-  });
-  // market share
-  let totAcc=0,totAI=0; const sAcc=PATH_SCEN.map(()=>0), sRev=PATH_SCEN.map(()=>0);
-  PATH_MKT.forEach(g=>{
-    const ai=g.ai(), mAcc=PS.mktAcc[g.id]; totAcc+=mAcc; totAI+=ai;
-    $("mai-"+g.id).textContent="$"+ai.toFixed(ai>=10?1:2)+"B";
-    PATH_SCEN.forEach((sc,s)=>{
-      const n=g.rows.reduce((t,r)=>t+(PS.acc[s][r.id]||0),0), rv=g.rows.reduce((t,r)=>t+(PS.acc[s][r.id]||0)*acvOf(r),0);
-      sAcc[s]+=n; sRev[s]+=rv;
-      const a=$("msa-"+s+"-"+g.id), b=$("msr-"+s+"-"+g.id);
-      a.textContent=n?pct1(n/mAcc):"–"; b.textContent=n?pct1(rv/(ai*1000)):"–";
-      a.classList.toggle("zero",!n); b.classList.toggle("zero",!n);
-    });
-  });
-  $("mta").textContent=totAcc.toLocaleString("en-US"); $("mtai").textContent="$"+totAI.toFixed(1)+"B";
-  PATH_SCEN.forEach((sc,s)=>{$("msa-"+s+"-all").textContent=sAcc[s]?pct1(sAcc[s]/totAcc):"–"; $("msr-"+s+"-all").textContent=sAcc[s]?pct1(sRev[s]/(totAI*1000)):"–";});
-  // cards
-  revs.forEach((r,s)=>{
-    const f=goal>0?r.tr/goal:0;
-    $("sv"+s).textContent=fmtM(r.tr);
-    const b=$("sb"+s); b.style.width=Math.min(100,f*100)+"%"; b.classList.toggle("hit",f>=0.9995);
-    $("sg"+s).textContent=pct1(f)+" of "+fmtGoal(goal)+" goal";
-    $("sa"+s).textContent=r.ta+" accounts";
-  });
-  $("tabs").querySelector('[data-v="path"]').textContent="Path to "+fmtGoal(goal);
-}
-function syncPathInputs(){
-  const set=(id,v)=>{if(document.activeElement!==$(id)) $(id).value=v;};
-  set("pGoal",PS.goal); set("pER",+(PS.er*100).toFixed(4)); set("pSow",+(PS.sow*100).toFixed(2));
-  set("pShare",+(PS.share*100).toFixed(2)); set("pEff",+state.eff.toFixed(2));
-}
-(function(){
-  const num=(id,fn)=>$(id).addEventListener("input",e=>{const v=parseFloat(e.target.value); if(!isNaN(v)) fn(v);});
-  num("pGoal",v=>{if(v>0){PS.goal=v;savePath();updatePath();}});
-  num("pER",v=>{PS.er=Math.max(0,v)/100;savePath();updatePath();});
-  num("pSow",v=>{PS.sow=Math.max(0,Math.min(100,v))/100;savePath();updatePath();});
-  num("pShare",v=>{PS.share=Math.max(0,Math.min(100,v))/100;savePath();updatePath();});
-  num("pEff",v=>{if(v>0){state.eff=Math.min(20,v);render();}});
-  ["pGoal","pER","pSow","pShare","pEff"].forEach(id=>$(id).addEventListener("blur",syncPathInputs));
-})();
-
 // ---------- market concentration ----------
 // From the "Market Concentration" sheet, $B. co: top 125 companies (79 for TPA & BPO) as
 // [name, (country), GWP, underwriting exp, capturable, AI spend] (TPA: revenue, insurance ops, ops costs, AI spend).
@@ -865,6 +724,7 @@ const CONC_SEGS=[
   {id:"nonus",label:"Non-US carriers",sub:"5,374 carriers, excl. China",n:5374,c:"#3F6488",c2:"#86A3BF",t:"#D3DEE9",country:true,pred:r=>r.seg==="Carrier & MGA"&&r.geo!=="US"&&r.geo!=="China"},
   {id:"tpa",label:"TPA & BPO",sub:"108 TPAs, world",n:108,c:"#1F8C6A",c2:"#6CC3A3",t:"#CBEEDF",tpa:true,pred:r=>r.seg==="TPA & BPO"},
 ];
+function mktAI(pred){return rows.reduce((t,r)=>t+(pred(r)?values(r)[3]:0),0);} // $B, follows the shared assumptions
 const CONC_LABELS=["GWP","Underwriting expenses","Capturable spend","AI spend"], CONC_TPA_LABELS=["Revenue","Insurance ops","Ops costs","AI spend"];
 let concData=[], concPin=null;
 const fmtN=x=>x.toLocaleString("en-US");
@@ -977,6 +837,121 @@ function concUnpin(){concPin=null;$("cgrid").querySelectorAll(".crow.pin").forEa
   num("cEff",v=>{if(v>0){state.eff=Math.min(20,v);render();}});
 })();
 
+// ---------- path to $1B ----------
+// One column per segment, built on the Market concentration data (so AI spend ties to the market map).
+// Top 10 accounts by AI spend are named: tick the ones we win, each with its own share of wallet.
+// Then groups chosen so each group's average is a fair stand-in (low spread of AI spend inside a group),
+// then the long-tail groups. Contract value = AI spend × share of wallet; revenue = logos won × contract value.
+const PATH_BANDS={carrier:[[11,20],[21,30],[31,40],[41,50],[51,75],[76,100],[101,125]],tpa:[[11,20],[21,30],[31,40],[41,50],[51,65],[66,79]]};
+const PATH_TIER_LABELS={carrier:["#11–50","#51–125","Long tail"],tpa:["#11–50","#51–79","Rest"]};
+const PATH_NAMED_SOW=0.05, PATH_TIER_SOW=[0.05,0.15,0.30]; // top 10 each; #11–50, #51–125, long tail
+const PATH_DEF={ // opening position
+  won:{uspc:["Farmers","Travelers"],uslife:["Prudential Financial Group","MetLife Group"],ushealth:["UnitedHealth Group","Centene Corporation Group"],
+       nonus:["AXA Group","Zurich Insurance Group","Allianz SE"],tpa:["Sedgwick","Gallagher Bassett / Arthur J. Gallagher","Davies Group","Crawford & Company"]},
+  sow:{uslife:{"Prudential Financial Group":0.01,"MetLife Group":0.01},ushealth:{"UnitedHealth Group":0.01,"Centene Corporation Group":0.01},
+       nonus:{"AXA Group":0.03,"Zurich Insurance Group":0.02,"Allianz SE":0.03},
+       tpa:{"Gallagher Bassett / Arthur J. Gallagher":0.10,"Davies Group":0.10,"Crawford & Company":0.10}},
+  cnt:{uspc:{"11-20":3,"21-30":4,"31-40":4,"41-50":4,"51-75":10,"76-100":10,"101-125":10,"126-150":10,"151-175":10},
+       uslife:{"11-20":1,"21-30":1,"31-40":1},ushealth:{"11-20":1,"21-30":1,"31-40":1},nonus:{"11-20":1,"21-30":1,"31-40":1},
+       tpa:{"11-20":5,"21-30":5,"31-40":5}}
+};
+function pathDefaults(){
+  const o={goal:1000,tier:{},sow:{},won:{},cnt:{}};
+  CONC_SEGS.forEach(sg=>{o.tier[sg.id]=[...PATH_TIER_SOW];
+    o.sow[sg.id]={...(PATH_DEF.sow[sg.id]||{})}; o.won[sg.id]=[...(PATH_DEF.won[sg.id]||[])]; o.cnt[sg.id]={...(PATH_DEF.cnt[sg.id]||{})};});
+  return o;
+}
+let PS=pathDefaults(), pathReady=false, pathModels=[];
+function savePath(){markDirty();} // edits are only kept when the user clicks Save
+function fmtM(m){const a=Math.abs(m); if(a>=1000) return "$"+(m/1000).toFixed(2)+"B"; if(a>=100) return "$"+Math.round(m)+"M"; if(a>=10) return "$"+m.toFixed(1)+"M"; if(a===0) return "$0"; return "$"+m.toFixed(2)+"M";}
+function fmtGoal(m){return m>=1000&&m%1000===0?"$"+(m/1000)+"B":fmtM(m);}
+function pathModel(sg){
+  const rows=concRows(sg), co=rows.filter(r=>!r.agg).sort((a,b)=>b.v[3]-a.v[3]), tail=rows.filter(r=>r.agg);
+  const bands=PATH_BANDS[sg.tpa?"tpa":"carrier"].map(([a,b])=>{const m=co.slice(a-1,b);
+      return {key:a+"-"+b,label:"#"+a+"–"+b,n:m.length,avg:m.reduce((t,r)=>t+r.v[3],0)/m.length,tier:a<=50?0:1};});
+  tail.forEach(r=>bands.push({key:r.r0+"-"+r.r1,label:"#"+fmtN(r.r0)+"–"+fmtN(r.r1),n:r.n,avg:r.v[3]/r.n,tier:2,tail:true}));
+  return {sg,named:co.slice(0,10).map(r=>({name:r.name,ai:r.v[3]})),bands,mkt:rows.reduce((t,r)=>t+r.v[3],0)};
+}
+const pSow=(id,name)=>{const v=PS.sow[id]&&PS.sow[id][name];return typeof v==="number"?v:PATH_NAMED_SOW;};
+const pCnt=(id,b)=>Math.min(b.n,Math.max(0,Math.round((PS.cnt[id]||{})[b.key]||0)));
+const pPct=x=>+(x*100).toFixed(2);
+function buildPath(){
+  pathModels=CONC_SEGS.map(pathModel);
+  $("pgrid").innerHTML=pathModels.map(({sg,named,bands})=>{
+    const id=sg.id, TL=PATH_TIER_LABELS[sg.tpa?"tpa":"carrier"];
+    let h='<div class="cpanel pcol" style="--c:'+sg.c+';--t:'+sg.t+'" data-s="'+id+'"><div class="cname">'+esc(sg.label)+'</div><div class="csub">'+esc(sg.sub)+'</div>'+
+      '<div class="ctot num" data-o="rev"></div><div class="pstat num" data-o="stat"></div>'+
+      '<div class="psow"><div class="lbl">Share of wallet</div><div class="psowg"><label>Top 10<em>per row</em></label>'+
+      TL.map((l,t)=>'<label>'+l+'<span class="numbox xs"><input data-k="tier" data-t="'+t+'" type="number" min="0" max="100" step="1" value="'+pPct(PS.tier[id][t])+'" aria-label="'+esc(sg.label)+' share of wallet, '+l+'"><span>%</span></span></label>').join("")+'</div></div>'+
+      '<ol class="plist"><li class="chead">Top 10 · tick the ones we win</li>';
+    named.forEach((r,i)=>{const won=PS.won[id].includes(r.name);
+      h+='<li class="pnmr'+(won?' won':'')+'" data-i="'+i+'"><label><input type="checkbox" data-k="won"'+(won?' checked':'')+'><span class="pnm">'+esc(r.name)+'</span></label>'+
+        '<span class="numbox xs"><input data-k="sow" type="number" min="0" max="100" step="0.5" value="'+pPct(pSow(id,r.name))+'" aria-label="Share of wallet, '+esc(r.name)+'"><span>%</span></span><span class="vl num"></span></li>';});
+    bands.forEach((b,i)=>{
+      if(i===0) h+='<li class="chead">'+(sg.tpa?'#11–79':'#11–125')+' · logos won</li>';
+      if(b.tail&&!bands[i-1].tail) h+='<li class="chead">'+(sg.tpa?'Rest':'Long tail, estimated')+'</li>';
+      h+='<li class="pgr" data-b="'+i+'"><div class="gl"><span class="gname num">'+b.label+'</span><span class="gavg num"></span><span class="vl num"></span></div>'+
+        '<div class="gc"><button type="button" data-k="dec" aria-label="One fewer">−</button><input data-k="cnt" type="number" min="0" max="'+b.n+'" step="1" value="'+pCnt(id,b)+'" aria-label="Logos won, '+esc(sg.label)+' '+b.label+'">'+
+        '<button type="button" data-k="inc" aria-label="One more">+</button><span class="of">of '+fmtN(b.n)+'</span><span class="pb"><i></i></span><span class="pp num"></span></div></li>';
+    });
+    return h+'</ol></div>';
+  }).join("");
+  pathReady=true; updatePath();
+}
+function updatePath(){
+  pathModels=CONC_SEGS.map(pathModel);
+  let total=0,logos=0; const segRev=[];
+  pathModels.forEach(({sg,named,bands,mkt})=>{
+    const id=sg.id, col=$("pgrid").querySelector('.pcol[data-s="'+id+'"]'); if(!col) return;
+    let rev=0,lg=0;
+    named.forEach((r,i)=>{const el=col.querySelector('.pnmr[data-i="'+i+'"]'), won=PS.won[id].includes(r.name), cv=r.ai*pSow(id,r.name);
+      if(won){rev+=cv;lg++;} el.classList.toggle("won",won); el.querySelector(".vl").textContent=money(cv);
+      el.title=r.name+": AI spend "+money(r.ai)+" × share of wallet = contract value "+money(cv);});
+    bands.forEach((b,i)=>{const el=col.querySelector('.pgr[data-b="'+i+'"]'), n=pCnt(id,b), cv=b.avg*PS.tier[id][b.tier], v=n*cv;
+      rev+=v; lg+=n; el.classList.toggle("on",n>0);
+      el.querySelector(".gavg").textContent="avg "+money(cv)+" / logo";
+      el.querySelector(".vl").textContent=n?money(v):"–";
+      el.querySelector(".pb i").style.width=(n/b.n*100)+"%";
+      el.querySelector(".pp").textContent=(n/b.n*100).toFixed(n&&n/b.n<0.01?1:0)+"%";
+      const inp=el.querySelector('input[data-k="cnt"]'); if(document.activeElement!==inp) inp.value=n;});
+    col.querySelector('[data-o="rev"]').textContent=money(rev);
+    col.querySelector('[data-o="stat"]').innerHTML='<b>'+fmtN(lg)+'</b> '+(lg===1?'logo':'logos')+' of '+fmtN(sg.n)+' · avg <b>'+money(lg?rev/lg:0)+'</b>/logo<br>'+concPct(mkt?rev/mkt:0)+' of segment AI spend';
+    total+=rev; logos+=lg; segRev.push({sg,rev,lg});
+  });
+  const goal=PS.goal/1000, scale=Math.max(goal,total)||1;
+  $("pTot").textContent=fmtM(total*1000);
+  $("pTotSub").textContent=concPct(goal?total/goal:0)+" of "+fmtGoal(PS.goal)+" goal · "+fmtN(logos)+(logos===1?" logo":" logos");
+  $("pBar").innerHTML=segRev.map(x=>'<span style="width:'+(x.rev/scale*100)+'%;background:'+x.sg.c+'" title="'+esc(x.sg.label)+' '+money(x.rev)+'"></span>').join("")+
+    '<i class="goal" style="left:'+(goal/scale*100)+'%" title="Goal '+fmtGoal(PS.goal)+'"></i>';
+  $("pLeg").innerHTML=segRev.map(x=>'<span><i style="background:'+x.sg.c+'"></i>'+esc(x.sg.label)+' <b>'+money(x.rev)+'</b></span>').join("");
+  $("tabs").querySelector('[data-v="path"]').textContent="Path to "+fmtGoal(PS.goal);
+}
+function syncPathInputs(){
+  const set=(id,v)=>{if(document.activeElement!==$(id)) $(id).value=v;};
+  set("pGoal",PS.goal); set("pShare",+(state.share*100).toFixed(2)); set("pEff",+state.eff.toFixed(2));
+}
+(function(){
+  const g=$("pgrid");
+  const seg=el=>el.closest(".pcol").dataset.s, model=id=>pathModels.find(m=>m.sg.id===id);
+  const setCnt=(el,v)=>{const id=seg(el), b=model(id).bands[+el.closest(".pgr").dataset.b];
+    PS.cnt[id]=PS.cnt[id]||{}; PS.cnt[id][b.key]=Math.min(b.n,Math.max(0,Math.round(v)||0)); savePath(); updatePath();};
+  g.addEventListener("input",e=>{const t=e.target, k=t.dataset.k; if(!k) return; const id=seg(t), v=parseFloat(t.value);
+    if(k==="cnt"){ if(!isNaN(v)) setCnt(t,v); return; }
+    if(isNaN(v)) return;
+    if(k==="tier"){PS.tier[id][+t.dataset.t]=Math.max(0,Math.min(100,v))/100;}
+    else if(k==="sow"){const name=model(id).named[+t.closest(".pnmr").dataset.i].name; PS.sow[id][name]=Math.max(0,Math.min(100,v))/100;}
+    savePath(); updatePath();});
+  g.addEventListener("change",e=>{const t=e.target; if(t.dataset.k!=="won") return; const id=seg(t), name=model(id).named[+t.closest(".pnmr").dataset.i].name;
+    PS.won[id]=PS.won[id].filter(x=>x!==name); if(t.checked) PS.won[id].push(name); savePath(); updatePath();});
+  g.addEventListener("click",e=>{const t=e.target.closest("button[data-k]"); if(!t) return; const inp=t.parentNode.querySelector('input[data-k="cnt"]');
+    setCnt(inp,(parseInt(inp.value)||0)+(t.dataset.k==="inc"?1:-1));});
+  g.addEventListener("focusout",e=>{if(e.target.matches("input")) updatePath();});
+  const num=(id,fn)=>{$(id).addEventListener("input",e=>{const v=parseFloat(e.target.value); if(!isNaN(v)) fn(v);}); $(id).addEventListener("blur",syncPathInputs);};
+  num("pGoal",v=>{if(v>0){PS.goal=v;savePath();updatePath();}});
+  num("pShare",v=>{state.share=Math.max(0,Math.min(100,v))/100;render();});
+  num("pEff",v=>{if(v>0){state.eff=Math.min(20,v);render();}});
+})();
+
 // ---------- tabs ----------
 const FOOT_MAP=$("foot").innerHTML;
 function setTab(v){
@@ -985,8 +960,8 @@ function setTab(v){
   document.body.classList.toggle("conc",v==="conc");
   concUnpin();
   $("tabs").querySelectorAll("button").forEach(b=>b.setAttribute("aria-selected",b.dataset.v===v));
-  $("pageSub").innerHTML=v==="conc"?"Top 125 companies in each segment (79 for TPA &amp; BPO), then the long tail":v==="wf"?"Whole market, not affected by the map filters":v==="path"?"Scenarios for reaching the sales goal, by number of accounts per segment":"10,000 squares = the whole market";
-  $("foot").innerHTML=v==="conc"?"Source: Market Concentration sheet, Insurance Market Model. AI spend is each company's share of its segment × that segment's Addressable AI Spend on the market map, so it moves with the assumptions and ties to the map. Non-US carriers exclude China (176 carriers), on this tab only. Company counts come from the workbook's Market Overview. GWP and underwriting expenses come straight from the sheet and don't fully tie to the map (mix by LOB). Capturable spend is underwriting expenses × share automatable; for TPA &amp; BPO the columns are revenue, insurance ops and ops costs. Long-tail groups (hatched) use the sheet's long-tail estimates: their GWP split, with the other metrics split the same way. All bars in a column share one scale. Use the slider in each column to sum any range, one company at a time up to #125, then by long-tail group; arrow keys move one step.":v==="path"?"Source: Path sheet, Market Overview Sept 2026 workbook. Share automatable on this tab is set separately from the other tabs; both default to 30%. The market AI spend in the market share table uses the market tabs' assumptions. For TPAs, average revenue stands in for GWP, with underwriting expenses at 50% of revenue and all of it capturable, as on the map. Click Save to keep your inputs in this browser; Reset returns to the workbook values.":v==="wf"?"Source: Market Overview, Sept 2026 workbook. Gross Written Premium counts Carrier &amp; MGA only; underwriting expenses and the later steps include TPA &amp; BPO.":FOOT_MAP;
+  $("pageSub").innerHTML=v==="conc"?"Top 125 companies in each segment (79 for TPA &amp; BPO), then the long tail":v==="wf"?"Whole market, not affected by the map filters":v==="path"?"Pick the accounts we win in each segment. Contract value = AI spend × share of wallet":"10,000 squares = the whole market";
+  $("foot").innerHTML=v==="conc"?"Source: Market Concentration sheet, Insurance Market Model. AI spend is each company's share of its segment × that segment's Addressable AI Spend on the market map, so it moves with the assumptions and ties to the map. Non-US carriers exclude China (176 carriers), on this tab only. Company counts come from the workbook's Market Overview. GWP and underwriting expenses come straight from the sheet and don't fully tie to the map (mix by LOB). Capturable spend is underwriting expenses × share automatable; for TPA &amp; BPO the columns are revenue, insurance ops and ops costs. Long-tail groups (hatched) use the sheet's long-tail estimates: their GWP split, with the other metrics split the same way. All bars in a column share one scale. Use the slider in each column to sum any range, one company at a time up to #125, then by long-tail group; arrow keys move one step.":v==="path"?"Built on the Market concentration data, so AI spend per account ties to the market map and follows the assumptions, which are shared with every tab. Accounts are ranked by AI spend (TPAs too). The top 10 are named; each has its own share of wallet. Groups below were chosen so that companies inside a group have similar AI spend, so the group average is a fair contract value. Long-tail groups use the sheet's estimates. Click Save to keep your inputs in this browser; Reset returns to the opening position.":v==="wf"?"Source: Market Overview, Sept 2026 workbook. Gross Written Premium counts Carrier &amp; MGA only; underwriting expenses and the later steps include TPA &amp; BPO.":FOOT_MAP;
   tip.classList.remove("on");
   if(v==="map"){size();draw();}
 }
@@ -1000,7 +975,8 @@ $("tabs").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>s
 // SNAP_V 2: TPA rows store average revenue ($B) instead of a fixed AI spend per account ($M).
 // SNAP_V 3: Path has its own share automatable; older saves used one share for every tab.
 // SNAP_V 4: Market concentration lists 125 companies; slider ranges from older saves are dropped.
-const SAVE_KEY="strada-market-saved-v1", SNAP_V=4;
+// SNAP_V 5: new Path tab (accounts won per segment); Path inputs from older saves are dropped, except the goal.
+const SAVE_KEY="strada-market-saved-v1", SNAP_V=5;
 try{localStorage.removeItem("strada-path-v1");}catch(e){} // old auto-save from an earlier version
 function snapshot(){return JSON.stringify({v:SNAP_V,share:state.share,eff:state.eff,metric:state.metric,colorBy:state.colorBy,concMetric:state.concMetric,concSel:state.concSel,
   filters:Object.fromEntries(DIMS.map(d=>[d.key,DIM_VALUES[d.key].filter(v=>state.filters[d.key].has(v))])),path:PS});}
@@ -1012,22 +988,18 @@ const okNum=(v,ok)=>typeof v==="number"&&isFinite(v)&&ok(v);
 // copy only keys the defaults know about, and only valid numbers
 function mergeNums(def,src,ok){const out={...def};
   if(src&&typeof src==="object") Object.keys(def).forEach(k=>{if(okNum(src[k],ok)) out[k]=src[k];}); return out;}
-function mergePath(p,eff,ver,oldShare){
+function mergePath(p,ver){
   const d=pathDefaults(); if(!p||typeof p!=="object") return d;
-  const out={...d};
-  if(okNum(p.goal,v=>v>0)) out.goal=p.goal;
-  if(okNum(p.er,v=>v>=0)) out.er=p.er;
-  if(okNum(p.sow,v=>v>=0&&v<=1)) out.sow=p.sow;
-  if(okNum(p.share,v=>v>=0&&v<=1)) out.share=p.share;
-  else if(!(ver>=3)&&okNum(oldShare,v=>v>=0&&v<=1)) out.share=oldShare; // older saves: one share for every tab
-  if(typeof p.name5==="string") out.name5=p.name5;
-  const gwp={...(p.gwp&&typeof p.gwp==="object"?p.gwp:{})};
-  // v1 saves held TPA AI spend per account ($M); convert to revenue so the saved view is unchanged
-  if(!(ver>=2)) PATH_ROWS.forEach(r=>{if(r.tpa&&okNum(gwp[r.id],v=>v>=0)) gwp[r.id]=gwp[r.id]*eff/(TPA_ER*1000);});
-  out.gwp=mergeNums(d.gwp,gwp,v=>v>=0);
-  out.mktAcc=mergeNums(d.mktAcc,p.mktAcc,v=>v>0);
-  out.acc=d.acc.map((def,s)=>mergeNums(def,Array.isArray(p.acc)?p.acc[s]:null,v=>v>=0));
-  return out;
+  if(okNum(p.goal,v=>v>0)) d.goal=p.goal;
+  if(!(ver>=5)) return d;
+  const pct=v=>okNum(v,x=>x>=0&&x<=1);
+  CONC_SEGS.forEach(sg=>{const id=sg.id;
+    if(p.tier&&Array.isArray(p.tier[id])) d.tier[id]=d.tier[id].map((x,t)=>pct(p.tier[id][t])?p.tier[id][t]:x);
+    if(p.sow&&p.sow[id]&&typeof p.sow[id]==="object"){d.sow[id]={}; Object.keys(p.sow[id]).forEach(k=>{if(pct(p.sow[id][k])) d.sow[id][k]=p.sow[id][k];});}
+    if(p.won&&Array.isArray(p.won[id])) d.won[id]=p.won[id].filter(x=>typeof x==="string");
+    if(p.cnt&&p.cnt[id]&&typeof p.cnt[id]==="object"){d.cnt[id]={}; Object.keys(p.cnt[id]).forEach(k=>{if(okNum(p.cnt[id][k],x=>x>=0)) d.cnt[id][k]=Math.round(p.cnt[id][k]);});}
+  });
+  return d;
 }
 function applySnapshot(j){const o=JSON.parse(j);
   if(okNum(o.share,v=>v>=0&&v<=1)) state.share=o.share; if(okNum(o.eff,v=>v>0)) state.eff=o.eff;
@@ -1036,7 +1008,7 @@ function applySnapshot(j){const o=JSON.parse(j);
   if([0,1,2,3].includes(o.concMetric)) state.concMetric=o.concMetric;
   state.concSel={}; if(o.v>=4&&o.concSel&&typeof o.concSel==="object") CONC_SEGS.forEach(sg=>{const r=o.concSel[sg.id], n=concLen(sg.id);
     if(Array.isArray(r)&&r.length===2&&r.every(x=>Number.isInteger(x)&&x>=0&&x<n)&&r[0]<=r[1]) state.concSel[sg.id]=r;});
-  PS=mergePath(o.path,state.eff,o.v,o.share);}
+  PS=mergePath(o.path,o.v);}
 const DEFAULT_SNAP=defaultsSnapshot();
 let savedSnap=null, ready=false;
 try{savedSnap=localStorage.getItem(SAVE_KEY);}catch(e){}
@@ -1051,6 +1023,7 @@ function markDirty(){ if(!ready) return;
   $("btnSave").disabled=!dirty; $("btnSave").classList.toggle("pulse",dirty);
   $("btnReset").disabled=cur===DEFAULT_SNAP&&!savedSnap;
 }
+$("btnClear").addEventListener("click",()=>{CONC_SEGS.forEach(sg=>{PS.won[sg.id]=[];PS.cnt[sg.id]={};});buildPath();markDirty();});
 $("btnSave").addEventListener("click",()=>{savedSnap=snapshot();try{localStorage.setItem(SAVE_KEY,savedSnap);}catch(e){alert("Could not save in this browser.");savedSnap=null;}markDirty();});
 $("btnReset").addEventListener("click",()=>{applyDefaults();savedSnap=null;try{localStorage.removeItem(SAVE_KEY);}catch(e){}
   buildPath();render();markDirty();});
